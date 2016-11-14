@@ -1,4 +1,3 @@
-struct ToDoRedux {
+import TDRedux
 
-    var text = "Hello, World!"
-}
+
