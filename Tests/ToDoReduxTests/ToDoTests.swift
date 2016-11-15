@@ -7,7 +7,7 @@ class ToDoTests: ToDoReduxTests {
     override func setUp() {
         super.setUp()
 
-        store.dispatch(ToDoActions.add(title: "Buy milk", notes: "", tags: []))
+        store.dispatch(ToDoActions.add(title: "Buy milk", due: nil, notes: "", tags: []))
         todo = store.state.todos.first!
     }
 
@@ -27,7 +27,7 @@ class ToDoTests: ToDoReduxTests {
     }
 
     func testDoneToDo() {
-        store.dispatch(ToDoActions.add(title: "Buy CDs", notes: "", tags: []))
+        store.dispatch(ToDoActions.add(title: "Buy CDs", due: nil, notes: "", tags: []))
         store.dispatch(ToDoActions.done(todo: self.todo))
 
         let todo = store.state.todos.first!

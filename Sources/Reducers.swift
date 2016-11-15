@@ -24,8 +24,8 @@ extension State {
 
 public let todoReducer = Reducer(initialState: State.initial) { (state, action: ToDoActions) in
     switch action {
-    case let .add(title, notes, tags):
-        return state.addToDo(title: title, notes: notes, tags: tags)
+    case let .add(title, due, notes, tags):
+        return state.addToDo(title: title, due:due, notes: notes, tags: tags)
     case let .remove(todo):
         return state.remove(todo: todo)
     case let .done(todo):
@@ -35,10 +35,10 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
 
 // MARK: - ToDos related actions
 extension State {
-    fileprivate func addToDo(title: String, notes: String, tags: [Tag]) -> State {
+    fileprivate func addToDo(title: String, due: Date?, notes: String, tags: [Tag]) -> State {
         return .init(
             tags: self.tags,
-            todos: todos + [.init(title: title, notes: notes, tags: tags)]
+            todos: todos + [.init(title: title, due: due, notes: notes, tags: tags)]
         )
     }
 
