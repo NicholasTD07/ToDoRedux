@@ -12,6 +12,7 @@ public struct Tag {
 
 
 public struct ToDo {
+    internal let id: Id
     public let title: String
     public let notes: String
     public let tags: [Tag]
@@ -20,5 +21,7 @@ public struct ToDo {
         self.title = title
         self.notes = notes
         self.tags = tags
+
+        self.id = Id()
     }
 }

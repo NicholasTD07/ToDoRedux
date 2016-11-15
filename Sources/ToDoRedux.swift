@@ -14,7 +14,10 @@ public struct State {
         self.tags = tags
         self.todos = todos
     }
+}
 
+// MARK: - ToDos related actions
+extension State {
     fileprivate func addToDo(title: String, notes: String, tags: [Tag]) -> State {
         return .init(
             tags: self.tags,
@@ -22,6 +25,17 @@ public struct State {
         )
     }
 
+    fileprivate func remove(todo: ToDo) -> State {
+        return .init(
+            tags: tags,
+            todos: todos.filter { $0.id != todo.id }
+        )
+    }
+}
+
+
+// MARK: - Tags related actions
+extension State {
     fileprivate func addTag(name: String) -> State {
         return .init(
             tags: tags + [.init(name: name)],
@@ -32,6 +46,7 @@ public struct State {
 
 public enum ToDoActions: ToDoAction {
     case add(title: String, notes: String, tags: [Tag])
+    case remove(todo: ToDo)
 }
 
 public enum TagActions: ToDoAction {
@@ -54,5 +69,7 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
     switch action {
     case let .add(title, notes, tags):
         return state.addToDo(title: title, notes: notes, tags: tags)
+    case let .remove(todo):
+        return state.remove(todo: todo)
     }
 }
