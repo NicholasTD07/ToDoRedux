@@ -29,7 +29,7 @@ public struct ToDo {
         self.tags = tags
     }
 
-    public func toggleDone() -> ToDo {
+    internal func toggleDone() -> ToDo {
         return .init(
             id: id,
             title: title,
