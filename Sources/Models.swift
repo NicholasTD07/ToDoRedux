@@ -17,9 +17,11 @@ public struct Tag {
 public struct ToDo {
     public let title: String
     public let notes: String
+    public let tags: [Tag]
 
-    public init(title: String, notes: String) {
+    public init(title: String, notes: String, tags: [Tag]) {
         self.title = title
         self.notes = notes
+        self.tags = tags
     }
 }
