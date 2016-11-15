@@ -13,18 +13,18 @@ public struct State {
         self.todos = todos
     }
 
-    func add(title: String) -> State {
-        return .init(todos: todos + [.init(title: title)])
+    func add(title: String, notes: String) -> State {
+        return .init(todos: todos + [.init(title: title, notes: notes)])
     }
 }
 
 public enum ToDoActions: ToDoAction {
-    case add(title: String)
+    case add(title: String, notes: String)
 }
 
 public let reducer = Reducer(initialState: State.initial) { (state, action: ToDoActions) in
     switch action {
-    case let .add(title):
-        return state.add(title: title)
+    case let .add(title, notes):
+        return state.add(title: title, notes: notes)
     }
 }

@@ -13,7 +13,7 @@ class ToDoReduxTests: XCTestCase {
     }
 
     func testAddToDo() {
-        store.dispatch(ToDoActions.add(title: "Buy milk"))
+        store.dispatch(ToDoActions.add(title: "Buy milk", notes: ""))
 
         XCTAssertEqual(store.state.todos.count, 1)
 
