@@ -13,15 +13,29 @@ public struct Tag {
 
 public struct ToDo {
     internal let id: Id
+    internal let done: Bool
     public let title: String
     public let notes: String
     public let tags: [Tag]
 
-    public init(title: String, notes: String, tags: [Tag]) {
+    public init(
+        id: Id = Id(), done: Bool = false,
+        title: String, notes: String, tags: [Tag]
+    ) {
+        self.id = id
+        self.done = done
         self.title = title
         self.notes = notes
         self.tags = tags
+    }
 
-        self.id = Id()
+    public func toggleDone() -> ToDo {
+        return .init(
+            id: id,
+            done: !done,
+            title: title,
+            notes: notes,
+            tags: tags
+        )
     }
 }
