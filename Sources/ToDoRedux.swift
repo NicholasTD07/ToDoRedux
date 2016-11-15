@@ -15,14 +15,14 @@ public struct State {
         self.todos = todos
     }
 
-    func addToDo(title: String, notes: String, tags: [Tag]) -> State {
+    fileprivate func addToDo(title: String, notes: String, tags: [Tag]) -> State {
         return .init(
             tags: self.tags,
             todos: todos + [.init(title: title, notes: notes, tags: tags)]
         )
     }
 
-    func addTag(name: String) -> State {
+    fileprivate func addTag(name: String) -> State {
         return .init(
             tags: tags + [.init(name: name)],
             todos: todos
