@@ -2,8 +2,6 @@ import TDRedux
 
 public typealias Store = TDRedux.Store<State>
 
-public protocol ToDoAction: TDRedux.Action { }
-
 public struct State {
     public static let initial = State.init(tags: [], todos: [])
 
@@ -14,13 +12,4 @@ public struct State {
         self.tags = tags
         self.todos = todos
     }
-}
-
-public enum ToDoActions: ToDoAction {
-    case add(title: String, notes: String, tags: [Tag])
-    case remove(todo: ToDo)
-}
-
-public enum TagActions: ToDoAction {
-    case add(name: String)
 }
