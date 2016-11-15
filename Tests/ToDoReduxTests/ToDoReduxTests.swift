@@ -9,7 +9,18 @@ class ToDoReduxTests: XCTestCase {
     }
 
     func testInitialState() {
+        XCTAssertTrue(store.state.tags.isEmpty)
         XCTAssertTrue(store.state.todos.isEmpty)
+    }
+
+    func testAddTag() {
+        store.dispatch(TagActions.add(name: "Home"))
+
+        XCTAssertEqual(store.state.tags.count, 1)
+
+        let tag = store.state.tags.first!
+
+        XCTAssertEqual(tag.name, "Home")
     }
 
     func testAddToDo() {

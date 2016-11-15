@@ -15,10 +15,17 @@ public struct State {
         self.todos = todos
     }
 
-    func add(title: String, notes: String, tags: [Tag]) -> State {
+    func addToDo(title: String, notes: String, tags: [Tag]) -> State {
         return .init(
             tags: self.tags,
             todos: todos + [.init(title: title, notes: notes, tags: tags)]
+        )
+    }
+
+    func addTag(name: String) -> State {
+        return .init(
+            tags: tags + [.init(name: name)],
+            todos: todos
         )
     }
 }
@@ -27,9 +34,25 @@ public enum ToDoActions: ToDoAction {
     case add(title: String, notes: String, tags: [Tag])
 }
 
-public let reducer = Reducer(initialState: State.initial) { (state, action: ToDoActions) in
+public enum TagActions: ToDoAction {
+    case add(name: String)
+}
+
+public let reducer = TDRedux.combine(reducers: [
+    tagReducer,
+    todoReducer,
+])
+
+public let tagReducer = Reducer(initialState: State.initial) { (state, action: TagActions) in
+    switch action {
+    case let .add(name):
+        return state.addTag(name: name)
+    }
+}
+
+public let todoReducer = Reducer(initialState: State.initial) { (state, action: ToDoActions) in
     switch action {
     case let .add(title, notes, tags):
-        return state.add(title: title, notes: notes, tags: tags)
+        return state.addToDo(title: title, notes: notes, tags: tags)
     }
 }
