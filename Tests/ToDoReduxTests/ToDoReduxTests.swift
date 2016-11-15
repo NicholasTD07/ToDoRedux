@@ -1,18 +1,27 @@
 import XCTest
 import ToDoRedux
 
+/// This class is used to setup the store only.
+/// No tests should be written here
+/// since it's inherited by other Test classes.
 class ToDoReduxTests: XCTestCase {
     var store: ToDoRedux.Store!
 
     override func setUp() {
+        super.setUp()
+
         store = Store.init(with: ToDoRedux.reducer)
     }
+}
 
+class StateTests: ToDoReduxTests {
     func testInitialState() {
         XCTAssertTrue(store.state.tags.isEmpty)
         XCTAssertTrue(store.state.todos.isEmpty)
     }
+}
 
+class TagsTests: ToDoReduxTests {
     func testAddTag() {
         store.dispatch(TagActions.add(name: "Home"))
 
@@ -22,26 +31,4 @@ class ToDoReduxTests: XCTestCase {
 
         XCTAssertEqual(tag.name, "Home")
     }
-
-    func testAddToDo() {
-        store.dispatch(ToDoActions.add(title: "Buy milk", notes: "", tags: []))
-
-        XCTAssertEqual(store.state.todos.count, 1)
-
-        let todo = store.state.todos.first!
-
-        XCTAssertEqual(todo.title, "Buy milk")
-    }
-
-
-    /**
-        This seems unnecessary.
-        Without this, swift test can find the tests above.
-
-    static var allTests : [(String, (ToDoReduxTests) -> () throws -> Void)] {
-        return [
-            ("testExample", testExample),
-        ]
-    }
-    */
 }
