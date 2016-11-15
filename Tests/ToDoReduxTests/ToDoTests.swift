@@ -27,6 +27,7 @@ class ToDoTests: ToDoReduxTests {
     }
 
     func testDoneToDo() {
+        store.dispatch(ToDoActions.add(title: "Buy CDs", notes: "", tags: []))
         store.dispatch(ToDoActions.done(todo: self.todo))
 
         let todo = store.state.todos.first!
