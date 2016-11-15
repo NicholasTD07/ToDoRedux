@@ -62,3 +62,16 @@ extension State {
         )
     }
 }
+
+extension ToDo {
+    fileprivate func toggleDone() -> ToDo {
+        return .init(
+            id: id,
+            title: title,
+            done: !done,
+            due: due,
+            notes: notes,
+            tags: tags
+        )
+    }
+}

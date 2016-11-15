@@ -11,7 +11,7 @@ public struct ToDo {
     public let notes: String
     public let tags: [Tag]
 
-    public init(
+    internal init(
         id: Id = Id(),
         title: String,
         done: Bool = false,
@@ -27,16 +27,6 @@ public struct ToDo {
         self.tags = tags
     }
 
-    internal func toggleDone() -> ToDo {
-        return .init(
-            id: id,
-            title: title,
-            done: !done,
-            due: due,
-            notes: notes,
-            tags: tags
-        )
-    }
 }
 
 public struct Tag {
