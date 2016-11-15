@@ -3,12 +3,6 @@ import Foundation
 public typealias Id = UUID
 public typealias Date = Foundation.Date
 
-public struct Tag {
-    public let name: String
-
-    public init(name: String) {
-        self.name = name
-    }
 }
 
 public struct ToDo {
@@ -44,5 +38,13 @@ public struct ToDo {
             notes: notes,
             tags: tags
         )
+    }
+}
+
+public struct Tag {
+    public let name: String
+
+    public init(name: String) {
+        self.name = name
     }
 }
