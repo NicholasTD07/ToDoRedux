@@ -25,4 +25,12 @@ class ToDoTests: ToDoReduxTests {
 
         XCTAssertTrue(store.state.todos.isEmpty)
     }
+
+    func testDoneToDo() {
+        store.dispatch(ToDoActions.done(todo: self.todo))
+
+        let todo = store.state.todos.first!
+
+        XCTAssertTrue(todo.done)
+    }
 }

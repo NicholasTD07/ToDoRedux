@@ -28,6 +28,8 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
         return state.addToDo(title: title, notes: notes, tags: tags)
     case let .remove(todo):
         return state.remove(todo: todo)
+    case let .done(todo):
+        return state.done(todo: todo)
     }
 }
 
@@ -44,6 +46,19 @@ extension State {
         return .init(
             tags: tags,
             todos: todos.filter { $0.id != todo.id }
+        )
+    }
+
+    fileprivate func done(todo: ToDo) -> State {
+        return .init(
+            tags: tags,
+            todos: todos.map {
+                if $0.id != todo.id {
+                    return $0
+                } else {
+                    return $0.toggleDone()
+                }
+            }
         )
     }
 }
