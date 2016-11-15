@@ -1,5 +1,5 @@
 import XCTest
-@testable import ToDoRedux
+import ToDoRedux
 
 class ToDoReduxTests: XCTestCase {
     var store: ToDoRedux.Store!
