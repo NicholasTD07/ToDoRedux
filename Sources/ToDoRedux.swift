@@ -4,16 +4,6 @@ public typealias Store = TDRedux.Store<State>
 
 public protocol ToDoAction: TDRedux.Action { }
 
-public struct ToDo {
-    public let title: String
-    public let notes: String
-
-    public init(title: String, notes: String = "") {
-        self.title = title
-        self.notes = notes
-    }
-}
-
 public struct State {
     public static let initial = State.init(todos: [])
 
