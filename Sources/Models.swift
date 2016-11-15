@@ -13,7 +13,7 @@ public struct Tag {
 
 public struct ToDo {
     internal let id: Id
-    internal let done: Bool
+    public let done: Bool
     public let title: String
     public let notes: String
     public let tags: [Tag]

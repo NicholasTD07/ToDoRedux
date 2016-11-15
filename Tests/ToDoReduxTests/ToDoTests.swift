@@ -17,6 +17,7 @@ class ToDoTests: ToDoReduxTests {
         let todo = store.state.todos.first!
 
         XCTAssertEqual(todo.title, "Buy milk")
+        XCTAssertFalse(todo.done)
     }
 
     func testRemoveToDo() {
