@@ -2,7 +2,7 @@ import TDRedux
 
 public typealias Store = TDRedux.Store<State>
 
-public protocol ToDoAction { }
+public protocol ToDoAction: Action { }
 
 public struct ToDo {
     public let title: String
