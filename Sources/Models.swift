@@ -3,8 +3,6 @@ import Foundation
 public typealias Id = UUID
 public typealias Date = Foundation.Date
 
-}
-
 public struct ToDo {
     internal let id: Id
     public let title: String
