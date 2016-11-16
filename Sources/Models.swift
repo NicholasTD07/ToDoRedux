@@ -8,6 +8,9 @@ public struct ToDos {
     public let today: [ToDo] // get these done today
     public let later: [ToDo] // no plan for these yet
 
+    public var all: [ToDo] {
+        return inbox + today + later
+    }
     public var schedueld: [ToDo] { // has due dates
         return all.filter { $0.due != nil }
     }
