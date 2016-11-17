@@ -34,31 +34,40 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
 }
 
 // MARK: - ToDos related actions
+
+extension ToDos {
+    fileprivate func add(_ todo: ToDo, to box: Box) -> ToDos {
+        return .init(todos: todos + [ToDoInBox.init(todo: todo, box: box)])
+    }
+}
+
 extension State {
-    fileprivate func addToDo(title: String, due: Date?, notes: String, tags: [Tag]) -> State {
+    fileprivate func add(todo: ToDo, to box: Box) -> State {
         return .init(
             tags: self.tags,
-            todos: todos + [.init(title: title, due: due, notes: notes, tags: tags)]
+            todos: todos.add(todo, to: box)
         )
     }
 
     fileprivate func remove(todo: ToDo) -> State {
         return .init(
             tags: tags,
-            todos: todos.filter { $0.id != todo.id }
+            todos: .init(todos.todos.filter { $0.id != todo.id })
         )
     }
 
     fileprivate func done(todo: ToDo) -> State {
+        let todos = todos.map {
+            if $0.id != todo.id {
+                return $0
+            } else {
+                return $0.toggleDone()
+            }
+        }
+
         return .init(
             tags: tags,
-            todos: todos.map {
-                if $0.id != todo.id {
-                    return $0
-                } else {
-                    return $0.toggleDone()
-                }
-            }
+            todos: .init(todos: todos)
         )
     }
 }
