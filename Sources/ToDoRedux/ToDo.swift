@@ -6,7 +6,7 @@ public struct ToDo {
     public let notes: String
     public let tags: [Tag]
 
-    internal init(
+    public init(
         id: Id = Id(),
         title: String,
         done: Bool = false,
