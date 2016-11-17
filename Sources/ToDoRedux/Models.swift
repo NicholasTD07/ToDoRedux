@@ -37,14 +37,14 @@ extension ToDos {
             .map { $0.todo }
     }
 
-    public var schedueld: [ToDo] {
-        return todos
-            .filter { $0.todo.due != nil }
-            .map { $0.todo }
-    }
-
     public var all: [ToDo] {
         return todos.map { $0.todo }
+    }
+    public var done: [ToDo] {
+        return all.filter { $0.done }
+    }
+    public var schedueld: [ToDo] {
+        return all.filter { $0.due != nil }
     }
 }
 
