@@ -21,5 +21,10 @@ public struct ToDo {
         self.notes = notes
         self.tags = tags
     }
+}
 
+extension ToDo: Equatable { }
+
+public func == (lhs: ToDo, rhs: ToDo) -> Bool {
+    return lhs.id == rhs.id
 }

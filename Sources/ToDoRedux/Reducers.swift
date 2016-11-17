@@ -24,8 +24,8 @@ extension State {
 
 public let todoReducer = Reducer(initialState: State.initial) { (state, action: ToDoActions) in
     switch action {
-    case let .add(title, due, notes, tags):
-        return state.addToDo(title: title, due:due, notes: notes, tags: tags)
+    case let .add(todo, box):
+        return state.add(todo, to: box)
     case let .remove(todo):
         return state.remove(todo: todo)
     case let .done(todo):
@@ -36,13 +36,13 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
 // MARK: - ToDos related actions
 
 extension ToDos {
-    fileprivate func add(_ todo: ToDo, to box: Box) -> ToDos {
+    fileprivate func add(_ todo: ToDo, to box: ToDos.Box) -> ToDos {
         return .init(todos: todos + [ToDoInBox.init(todo: todo, box: box)])
     }
 }
 
 extension State {
-    fileprivate func add(todo: ToDo, to box: Box) -> State {
+    fileprivate func add(_ todo: ToDo, to box: ToDos.Box) -> State {
         return .init(
             tags: self.tags,
             todos: todos.add(todo, to: box)
@@ -52,13 +52,13 @@ extension State {
     fileprivate func remove(todo: ToDo) -> State {
         return .init(
             tags: tags,
-            todos: .init(todos.todos.filter { $0.id != todo.id })
+            todos: .init(todos: todos.todos.filter { $0.todo.id != todo.id })
         )
     }
 
     fileprivate func done(todo: ToDo) -> State {
-        let todos = todos.map {
-            if $0.id != todo.id {
+        let todos: [ToDos.ToDoInBox] = self.todos.todos.map {
+            if $0.todo.id != todo.id {
                 return $0
             } else {
                 return $0.toggleDone()
@@ -68,6 +68,15 @@ extension State {
         return .init(
             tags: tags,
             todos: .init(todos: todos)
+        )
+    }
+}
+
+extension ToDos.ToDoInBox {
+    fileprivate func toggleDone() -> ToDos.ToDoInBox {
+        return .init(
+            todo: todo.toggleDone(),
+            box: box
         )
     }
 }

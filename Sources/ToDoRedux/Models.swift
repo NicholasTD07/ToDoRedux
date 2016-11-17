@@ -16,20 +16,35 @@ public struct ToDos {
         let todo: ToDo
         let box: Box
     }
-    internal let todos: [ToDoInBox]
 
+    internal let todos: [ToDoInBox]
+}
+
+extension ToDos {
     public var inbox: [ToDo] {
-        return todos.filter { $0.in == .inbox }
+        return todos
+            .filter { $0.box == .inbox }
+            .map { $0.todo }
     }
     public var today: [ToDo] {
-        return todos.filter { $0.in == .today }
+        return todos
+            .filter { $0.box == .today }
+            .map { $0.todo }
     }
     public var later: [ToDo] {
-        return todos.filter { $0.in == .later }
+        return todos
+            .filter { $0.box == .later }
+            .map { $0.todo }
     }
 
-    public var schedueld: [ToDo] { // has due dates
-        return todos.filter { $0.todo.due != nil }
+    public var schedueld: [ToDo] {
+        return todos
+            .filter { $0.todo.due != nil }
+            .map { $0.todo }
+    }
+
+    public var all: [ToDo] {
+        return todos.map { $0.todo }
     }
 }
 
