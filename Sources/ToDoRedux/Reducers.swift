@@ -32,6 +32,8 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
         return state.done(todo)
     case let .move(todo, box):
         return state.move(todo, to: box)
+    case let .archive(todo):
+        return state.archive(todo)
     }
 }
 
@@ -69,6 +71,13 @@ extension State {
         return .init(
             tags: tags,
             todos: todos.move(todo, to: box)
+        )
+    }
+
+    fileprivate func archive(_ todo: ToDo) -> State {
+        return .init(
+            tags: tags,
+            todos: todos.move(todo, to: .archive)
         )
     }
 }

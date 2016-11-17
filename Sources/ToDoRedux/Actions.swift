@@ -7,6 +7,7 @@ public enum ToDoActions: ToDoAction {
     case remove(todo: ToDo)
     case done(todo: ToDo)
     case move(todo: ToDo, to: ToDos.Box)
+    case archive(todo: ToDo)
 }
 
 public enum TagActions: ToDoAction {

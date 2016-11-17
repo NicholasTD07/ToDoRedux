@@ -5,6 +5,7 @@ public struct ToDos {
         case inbox
         case today
         case later
+        case archive
     }
 
     internal struct ToDoInBox {
@@ -29,6 +30,11 @@ extension ToDos {
     public var later: [ToDo] {
         return todos
             .filter { $0.box == .later }
+            .map { $0.todo }
+    }
+    public var archive: [ToDo] {
+        return todos
+            .filter { $0.box == .archive }
             .map { $0.todo }
     }
 

@@ -46,6 +46,18 @@ class AppSpecs: XCTestCase {
         XCTAssertEqual(app.todos.today.count, 1)
         XCTAssertEqual(app.todos.today[0], todo)
     }
+
+    func testArchivingToDo() {
+        addTestToInbox()
+
+        let todo = app.todos.inbox[0]
+
+        app.archive(todo)
+
+        XCTAssertEqual(app.todos.inbox.count, 0)
+        XCTAssertEqual(app.todos.archive.count, 1)
+        XCTAssertEqual(app.todos.archive[0], todo)
+    }
 }
 
 extension ToDo {

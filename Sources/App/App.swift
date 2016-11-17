@@ -15,4 +15,8 @@ internal struct App {
     func move(_ todo: ToDo, to box: ToDos.Box) {
         store.dispatch(ToDoActions.move(todo: todo, to: box))
     }
+
+    func archive(_ todo: ToDo) {
+        store.dispatch(ToDoActions.archive(todo: todo))
+    }
 }
