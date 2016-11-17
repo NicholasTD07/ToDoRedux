@@ -3,9 +3,11 @@ import TDRedux
 public protocol ToDoAction: TDRedux.Action { }
 
 public enum ToDoActions: ToDoAction {
-    case add(title: String, due: Date?, notes: String, tags: [Tag])
+    case add(todo: ToDo, to: ToDos.Box)
     case remove(todo: ToDo)
     case done(todo: ToDo)
+    case move(todo: ToDo, to: ToDos.Box)
+    case archive(todo: ToDo)
 }
 
 public enum TagActions: ToDoAction {

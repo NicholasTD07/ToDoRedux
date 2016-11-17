@@ -7,31 +7,39 @@ class ToDoTests: ToDoReduxTests {
     override func setUp() {
         super.setUp()
 
-        store.dispatch(ToDoActions.add(title: "Buy milk", due: nil, notes: "", tags: []))
-        todo = store.state.todos.first!
+        store.dispatch(ToDoActions.add(todo: ToDo.test, to: .inbox))
+        todo = store.state.todos.inbox.first!
     }
 
     func testAddedToDo() {
-        XCTAssertEqual(store.state.todos.count, 1)
+        XCTAssertEqual(store.state.todos.all.count, 1)
 
-        let todo = store.state.todos.first!
+        let todo = store.state.todos.inbox.first!
 
-        XCTAssertEqual(todo.title, "Buy milk")
+        XCTAssertEqual(todo.title, "test")
         XCTAssertFalse(todo.done)
     }
 
     func testRemoveToDo() {
         store.dispatch(ToDoActions.remove(todo: todo))
 
-        XCTAssertTrue(store.state.todos.isEmpty)
+        XCTAssertTrue(store.state.todos.all.isEmpty)
     }
 
     func testDoneToDo() {
-        store.dispatch(ToDoActions.add(title: "Buy CDs", due: nil, notes: "", tags: []))
         store.dispatch(ToDoActions.done(todo: self.todo))
 
-        let todo = store.state.todos.first!
+        let todo = store.state.todos.all.first!
 
         XCTAssertTrue(todo.done)
     }
+}
+
+extension ToDo {
+    static let test = ToDo(
+        title: "test",
+        due: nil,
+        notes: "",
+        tags: []
+    )
 }

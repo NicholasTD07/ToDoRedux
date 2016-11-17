@@ -6,7 +6,7 @@ public struct ToDo {
     public let notes: String
     public let tags: [Tag]
 
-    internal init(
+    public init(
         id: Id = Id(),
         title: String,
         done: Bool = false,
@@ -21,5 +21,10 @@ public struct ToDo {
         self.notes = notes
         self.tags = tags
     }
+}
 
+extension ToDo: Equatable { }
+
+public func == (lhs: ToDo, rhs: ToDo) -> Bool {
+    return lhs.id == rhs.id
 }
