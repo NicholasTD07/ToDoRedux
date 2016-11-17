@@ -29,7 +29,7 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
     case let .remove(todo):
         return state.remove(todo: todo)
     case let .done(todo):
-        return state.done(todo: todo)
+        return state.done(todo)
     case let .move(todo, box):
         return state.move(todo, to: box)
     }
@@ -58,18 +58,10 @@ extension State {
         )
     }
 
-    fileprivate func done(todo: ToDo) -> State {
-        let todos: [ToDos.ToDoInBox] = self.todos.todos.map {
-            if $0.todo.id != todo.id {
-                return $0
-            } else {
-                return $0.toggleDone()
-            }
-        }
-
+    fileprivate func done(_ todo: ToDo) -> State {
         return .init(
             tags: tags,
-            todos: .init(todos: todos)
+            todos: self.todos.done(todo)
         )
     }
 
@@ -87,6 +79,20 @@ extension State {
             tags: tags,
             todos: .init(todos: todos)
         )
+    }
+}
+
+extension ToDos {
+    fileprivate func done(_ todo: ToDo) -> ToDos {
+        let todos: [ToDos.ToDoInBox] = self.todos.map {
+            if $0.todo.id != todo.id {
+                return $0
+            } else {
+                return $0.toggleDone()
+            }
+        }
+
+        return .init(todos: todos)
     }
 }
 
