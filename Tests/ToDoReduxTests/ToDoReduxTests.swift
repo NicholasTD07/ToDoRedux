@@ -17,7 +17,7 @@ class ToDoReduxTests: XCTestCase {
 class StateTests: ToDoReduxTests {
     func testInitialState() {
         XCTAssertTrue(store.state.tags.isEmpty)
-        XCTAssertTrue(store.state.todos.isEmpty)
+        XCTAssertTrue(store.state.todos.all.isEmpty)
     }
 }
 
