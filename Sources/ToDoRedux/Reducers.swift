@@ -61,23 +61,14 @@ extension State {
     fileprivate func done(_ todo: ToDo) -> State {
         return .init(
             tags: tags,
-            todos: self.todos.done(todo)
+            todos: todos.done(todo)
         )
     }
 
     fileprivate func move(_ todo: ToDo, to box: ToDos.Box) -> State {
-        let todos: [ToDos.ToDoInBox] = self.todos.todos.map {
-            if $0.todo.id != todo.id {
-                return $0
-            } else {
-                print("Move \(todo.title) into \(box)")
-                return ToDos.ToDoInBox(todo: todo, box: box)
-            }
-        }
-
         return .init(
             tags: tags,
-            todos: .init(todos: todos)
+            todos: todos.move(todo, to: box)
         )
     }
 }
@@ -89,6 +80,18 @@ extension ToDos {
                 return $0
             } else {
                 return $0.toggleDone()
+            }
+        }
+
+        return .init(todos: todos)
+    }
+
+    fileprivate func move(_ todo: ToDo, to box: ToDos.Box) -> ToDos {
+        let todos: [ToDos.ToDoInBox] = self.todos.map {
+            if $0.todo.id != todo.id {
+                return $0
+            } else {
+                return ToDos.ToDoInBox(todo: todo, box: box)
             }
         }
 
