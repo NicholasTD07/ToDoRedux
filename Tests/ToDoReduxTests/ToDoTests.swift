@@ -16,7 +16,7 @@ class ToDoTests: ToDoReduxTests {
 
         let todo = store.state.todos.inbox.first!
 
-        XCTAssertEqual(todo.title, "Buy milk")
+        XCTAssertEqual(todo.title, "test")
         XCTAssertFalse(todo.done)
     }
 
