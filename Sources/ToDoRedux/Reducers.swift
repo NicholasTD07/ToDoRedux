@@ -75,23 +75,23 @@ extension State {
 
 extension ToDos {
     fileprivate func done(_ todo: ToDo) -> ToDos {
-        let todos: [ToDos.ToDoInBox] = self.todos.map {
-            if $0.todo.id != todo.id {
-                return $0
-            } else {
-                return $0.toggleDone()
-            }
+        return update(todo) {
+            $0.toggleDone()
         }
-
-        return .init(todos: todos)
     }
 
     fileprivate func move(_ todo: ToDo, to box: ToDos.Box) -> ToDos {
+        return update(todo) {
+            .init(todo: $0.todo, box: box)
+        }
+    }
+
+    private func update(_ todo: ToDo, _ update: (ToDos.ToDoInBox) -> ToDos.ToDoInBox) -> ToDos {
         let todos: [ToDos.ToDoInBox] = self.todos.map {
             if $0.todo.id != todo.id {
                 return $0
             } else {
-                return ToDos.ToDoInBox(todo: todo, box: box)
+                return update($0)
             }
         }
 
