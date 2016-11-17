@@ -4,14 +4,15 @@ import ToDoRedux
 
 class AppSpecs: XCTestCase {
     var app: App!
+    let todo = ToDo.test
 
     override func setUp() {
         app = App()
     }
 
     func addToDo() {
-        app.todos.add(
-          ToDo.test,
+        app.add(
+          todo,
           to: .inbox
         )
     }
@@ -21,7 +22,7 @@ class AppSpecs: XCTestCase {
 
         let todo = app.todos.inbox[0]
 
-        // expect todo == ToDo.test
+        XCTAssertEqual(todo, self.todo)
     }
 
     func testMarkingToDoAsDone() {
@@ -29,8 +30,17 @@ class AppSpecs: XCTestCase {
 
         let todo = app.todos.inbox[0]
 
-        app.todos.done(todo)
+        app.done(todo)
 
-        // expect app.todos.done.contains(todo)
+        XCTAssertTrue(app.todos.done.contains(todo))
     }
+}
+
+extension ToDo {
+    static let test = ToDo(
+        title: "test",
+        due: nil,
+        notes: "",
+        tags: []
+    )
 }
