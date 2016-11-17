@@ -30,6 +30,8 @@ public let todoReducer = Reducer(initialState: State.initial) { (state, action: 
         return state.remove(todo: todo)
     case let .done(todo):
         return state.done(todo: todo)
+    case let .move(todo, box):
+        return state.move(todo, to: box)
     }
 }
 
@@ -62,6 +64,22 @@ extension State {
                 return $0
             } else {
                 return $0.toggleDone()
+            }
+        }
+
+        return .init(
+            tags: tags,
+            todos: .init(todos: todos)
+        )
+    }
+
+    fileprivate func move(_ todo: ToDo, to box: ToDos.Box) -> State {
+        let todos: [ToDos.ToDoInBox] = self.todos.todos.map {
+            if $0.todo.id != todo.id {
+                return $0
+            } else {
+                print("Move \(todo.title) into \(box)")
+                return ToDos.ToDoInBox(todo: todo, box: box)
             }
         }
 

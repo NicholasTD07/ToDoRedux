@@ -11,4 +11,8 @@ internal struct App {
     func done(_ todo: ToDo) {
         store.dispatch(ToDoActions.done(todo: todo))
     }
+
+    func move(_ todo: ToDo, to box: ToDos.Box) {
+        store.dispatch(ToDoActions.move(todo: todo, to: box))
+    }
 }

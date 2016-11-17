@@ -10,7 +10,7 @@ class AppSpecs: XCTestCase {
         app = App()
     }
 
-    func addToDo() {
+    func addTestToInbox() {
         app.add(
           todo,
           to: .inbox
@@ -18,7 +18,7 @@ class AppSpecs: XCTestCase {
     }
 
     func testAddingToDo() {
-        addToDo()
+        addTestToInbox()
 
         let todo = app.todos.inbox[0]
 
@@ -26,13 +26,25 @@ class AppSpecs: XCTestCase {
     }
 
     func testMarkingToDoAsDone() {
-        addToDo()
+        addTestToInbox()
 
         let todo = app.todos.inbox[0]
 
         app.done(todo)
 
         XCTAssertTrue(app.todos.done.contains(todo))
+    }
+
+    func testMovingToDo() {
+        addTestToInbox()
+
+        let todo = app.todos.inbox[0]
+
+        app.move(todo, to: .today)
+
+        XCTAssertEqual(app.todos.inbox.count, 0)
+        XCTAssertEqual(app.todos.today.count, 1)
+        XCTAssertEqual(app.todos.today[0], todo)
     }
 }
 
