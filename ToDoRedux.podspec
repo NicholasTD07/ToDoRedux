@@ -4,6 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = "A framework for a ToDo app, powered by TDRedux."
   s.description  = <<-DESC
     A framework for a ToDo app, powered by TDRedux.
+    Also an example framework to showcase TDRedux.
                    DESC
 
   s.homepage     = "https://github.com/NicholasTD07/ToDoRedux"
