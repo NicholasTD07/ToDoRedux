@@ -97,6 +97,17 @@ class AppSpecs: XCTestCase {
         XCTAssertEqual(app.todos.archive.count, 1)
         XCTAssertEqual(app.todos.archive[0], todo)
     }
+
+    func testRemovingToDo() {
+        addTestToInbox()
+
+        let todo = app.todos.inbox[0]
+
+        app.remove(todo)
+
+        XCTAssertEqual(app.todos.inbox.count, 0)
+        XCTAssertEqual(app.todos.all.count, 0)
+    }
 }
 
 extension ToDo {
