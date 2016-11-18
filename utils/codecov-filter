@@ -19,9 +19,9 @@ while True:
             filtered_lines.append(
                 (
                     # /Users/nicholastian/proj/ToDoRedux/Sources/ToDoRedux/Reducers.swift:
-                    filepath_line.strip()
+                    'File ' + filepath_line.strip()
                     #       0|   56|    fileprivate func remove(todo: ToDo) -> State {
-                    + line.strip()[2:].strip()
+                    + line.strip()[2:].strip().replace('|', ':')
                  )
             )
 
