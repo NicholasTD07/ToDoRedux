@@ -8,7 +8,7 @@ test:
 
 coverage:
 	swift package generate-xcodeproj
-	xcodebuild -scheme $(SCHEME) -enableCodeCoverage YES test 2>&1 >/dev/null
+	xcodebuild -scheme $(SCHEME) -enableCodeCoverage YES test &>/dev/null
 	./utils/codecov -J '$(TARGET)' -d -c | ./utils/codecov-filter
 
 clean:
