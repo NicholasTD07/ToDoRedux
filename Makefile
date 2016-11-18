@@ -13,6 +13,9 @@ build-for-coverage:
 coverage: build-for-coverage
 	./utils/codecov -J '$(TARGET)' -d -c | ./utils/codecov-filter
 
+upload-coverage: clean-for-coverage build-for-coverage
+	./utils/codecov -J '$(TARGET)' -c -t $(token)
+
 raw-coverage:
 	./utils/codecov -J '$(TARGET)' -d -c
 
