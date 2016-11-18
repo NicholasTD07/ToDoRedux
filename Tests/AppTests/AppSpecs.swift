@@ -6,6 +6,12 @@ import ToDoRedux
 class AppSpecs: XCTestCase {
     var app: App!
     let todo = ToDo.test
+    let dummyToDo = ToDo(
+        title: "dummy",
+        due: nil,
+        notes: "",
+        tags: []
+    )
 
     override func setUp() {
         app = App()
@@ -14,6 +20,13 @@ class AppSpecs: XCTestCase {
     func addTestToInbox() {
         app.add(
           todo,
+          to: .inbox
+        )
+    }
+
+    func addDummyToDoToInbox() {
+        app.add(
+          dummyToDo,
           to: .inbox
         )
     }
