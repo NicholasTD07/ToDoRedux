@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+
+import sys
+import fileinput
+
+filtered_lines = []
+for line in fileinput.input():
+    if line.startswith('/'):
+        filepath_line = line
+        continue
+
+    if line.strip().startswith('0'):
+        filtered_lines.append(
+            filepath_line + line
+        )
+
+sys.stdout.write('\n'.join(filtered_lines))
