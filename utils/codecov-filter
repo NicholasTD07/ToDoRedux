@@ -17,7 +17,12 @@ while True:
 
         if line.strip().startswith('0'):
             filtered_lines.append(
-                filepath_line + line
+                (
+                    # /Users/nicholastian/proj/ToDoRedux/Sources/ToDoRedux/Reducers.swift:
+                    filepath_line.strip()
+                    #       0|   56|    fileprivate func remove(todo: ToDo) -> State {
+                    + line.strip()[2:].strip()
+                 )
             )
 
             while True:
