@@ -4,14 +4,28 @@ import sys
 import fileinput
 
 filtered_lines = []
-for line in fileinput.input():
-    if line.startswith('/'):
-        filepath_line = line
-        continue
 
-    if line.strip().startswith('0'):
-        filtered_lines.append(
-            filepath_line + line
-        )
+i = fileinput.input()
+
+while True:
+    try:
+        line = i.next()
+
+        if line.startswith('/'):
+            filepath_line = line
+            continue
+
+        if line.strip().startswith('0'):
+            filtered_lines.append(
+                filepath_line + line
+            )
+
+            while True:
+                line = i.next()
+
+                if not line.strip().startswith('0'):
+                    break # from the inner while loop
+    except:
+        break
 
 sys.stdout.write('\n'.join(filtered_lines))
