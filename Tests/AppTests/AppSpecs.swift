@@ -1,3 +1,4 @@
+import struct Foundation.Date
 import XCTest
 import ToDoRedux
 @testable import App
@@ -23,6 +24,28 @@ class AppSpecs: XCTestCase {
         let todo = app.todos.inbox[0]
 
         XCTAssertEqual(todo, self.todo)
+    }
+
+    func testAddingToDoToLater() {
+        app.add(self.todo, to: .later)
+
+        let todo = app.todos.later[0]
+
+        XCTAssertEqual(todo, self.todo)
+    }
+
+    func testAddingToDoWithDue() {
+        let todoWithDue = ToDo(
+            title: "test",
+            due: Date(),
+            notes: "",
+            tags: []
+        )
+        app.add(todoWithDue, to: .inbox)
+
+        let todo = app.todos.schedueld[0]
+
+        XCTAssertEqual(todo, todoWithDue)
     }
 
     func testMarkingToDoAsDone() {
