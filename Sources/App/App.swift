@@ -19,4 +19,8 @@ internal struct App {
     func archive(_ todo: ToDo) {
         store.dispatch(ToDoActions.archive(todo: todo))
     }
+
+    func remove(_ todo: ToDo) {
+        store.dispatch(ToDoActions.remove(todo: todo))
+    }
 }
